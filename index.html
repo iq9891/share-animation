@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>高性能动画-吆喝科技前端分享-李梦龙</title>
+    <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.css">
+    <link rel="stylesheet" href="bower_components/reveal.js/css/theme/league.css">
+  </head>
+  <body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- <section data-background="#7190f5">
+              <p class="fragment grow">grow</p>
+              <p class="fragment shrink">shrink</p>
+              <p class="fragment fade-out">fade-out</p>
+              <p class="fragment current-visible">visible only once</p>
+              <p class="fragment highlight-current-blue">blue only once</p>
+              <p class="fragment highlight-red">highlight-red</p>
+              <p class="fragment highlight-green">highlight-green</p>
+              <p class="fragment highlight-blue">highlight-blue</p>
+            </section> -->
+            <!-- <section>
+              <span class="fragment fade-in">
+                  <span class="fragment fade-out">I'll fade in, then out</span>
+              </span>
+            </section> -->
+            <!-- <section>
+              <h1>高性能动画</h1>
+              <p class="fragment" data-fragment-index="1">前端工程师 李梦龙</p>
+              <p class="fragment" data-fragment-index="2">2016年</p>
+            </section> -->
+            <section>
+              <h1>高性能动画</h1>
+              <p>前端工程师 李梦龙</p>
+              <p>2016年</p>
+            </section>
+            <section>
+              <h2>如何实现动画</h2>
+              <p class="fragment" data-fragment-index="1">JavaScript(animation/setInterval/setTimeout)</p>
+              <p class="fragment" data-fragment-index="2">CSS3(animation, transition)</p>
+              <p class="fragment" data-fragment-index="3">HTML5(canvas/requestAnimationFrame)</p>
+            </section>
+            <section>
+              <h2>性能差异</h2>
+              <embed width="240" height="320" src="http://boallen.com/assets/flash/fps-compare/fps-compare-15fps.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" play="true" loop="true" scale="showall" wmode="window" devicefont="false" bgcolor="#1e1e1e" name="fps-compare-15fps" menu="true" allowfullscreen="false" allowscriptaccess="sameDomain" salign="" type="application/x-shockwave-flash">
+              <embed width="240" height="320" src="http://boallen.com/assets/flash/fps-compare/fps-compare-60fps.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" play="true" loop="true" scale="showall" wmode="window" devicefont="false" bgcolor="#1e1e1e" name="fps-compare-60fps" menu="true" allowfullscreen="false" allowscriptaccess="sameDomain" salign="" type="application/x-shockwave-flash">
+            </section>
+        </div>
+    </div>
+    <script src="/bower_components/headjs/dist/1.0.0/head.min.js"></script>
+    <script src="/bower_components/reveal.js/js/reveal.js"></script>
+    <script>
+        //Reveal.initialize();
+        /**
+            * 启动slides
+            */
+            function initReveal() {
+                var config = {
+                    controls: true,
+                    progress: true,
+                    history: true,
+                    center: true
+                };
+
+                Reveal.initialize(config);
+            };
+            initReveal();
+    </script>
+  </body>
+</html>

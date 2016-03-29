@@ -1,0 +1,20 @@
+{
+  "name": "share-animation",
+  "version": "1.0.0",
+  "description": "吆喝科技前端分享——高性能动画",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iq9891/share-animation.git"
+  },
+  "keywords": [],
+  "author": "lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iq9891/share-animation/issues"
+  },
+  "homepage": "https://github.com/iq9891/share-animation#readme"
+}
