@@ -1,0 +1,21 @@
+{
+  "name": "share-animation",
+  "description": "吆喝科技前端分享——高性能动画",
+  "main": "index.js",
+  "authors": [
+    "lee"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/iq9891/share-animation",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "reveal.js": "^3.2.0"
+  }
+}

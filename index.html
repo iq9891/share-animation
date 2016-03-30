@@ -9,26 +9,6 @@
   <body>
     <div class="reveal">
         <div class="slides">
-            <!-- <section data-background="#7190f5">
-              <p class="fragment grow">grow</p>
-              <p class="fragment shrink">shrink</p>
-              <p class="fragment fade-out">fade-out</p>
-              <p class="fragment current-visible">visible only once</p>
-              <p class="fragment highlight-current-blue">blue only once</p>
-              <p class="fragment highlight-red">highlight-red</p>
-              <p class="fragment highlight-green">highlight-green</p>
-              <p class="fragment highlight-blue">highlight-blue</p>
-            </section> -->
-            <!-- <section>
-              <span class="fragment fade-in">
-                  <span class="fragment fade-out">I'll fade in, then out</span>
-              </span>
-            </section> -->
-            <!-- <section>
-              <h1>高性能动画</h1>
-              <p class="fragment" data-fragment-index="1">前端工程师 李梦龙</p>
-              <p class="fragment" data-fragment-index="2">2016年</p>
-            </section> -->
             <section>
               <h1>高性能动画</h1>
               <p>前端工程师 李梦龙</p>
@@ -36,35 +16,115 @@
             </section>
             <section>
               <h2>如何实现动画</h2>
-              <p class="fragment" data-fragment-index="1">JavaScript(animation/setInterval/setTimeout)</p>
-              <p class="fragment" data-fragment-index="2">CSS3(animation, transition)</p>
-              <p class="fragment" data-fragment-index="3">HTML5(canvas/requestAnimationFrame)</p>
+              <p class="fragment" data-fragment-index="1">JavaScript</p>
+              <p class="fragment" data-fragment-index="2">HTML5</p>
+              <p class="fragment" data-fragment-index="3">CSS3</p>
             </section>
             <section>
-              <h2>性能差异</h2>
-              <embed width="240" height="320" src="http://boallen.com/assets/flash/fps-compare/fps-compare-15fps.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" play="true" loop="true" scale="showall" wmode="window" devicefont="false" bgcolor="#1e1e1e" name="fps-compare-15fps" menu="true" allowfullscreen="false" allowscriptaccess="sameDomain" salign="" type="application/x-shockwave-flash">
-              <embed width="240" height="320" src="http://boallen.com/assets/flash/fps-compare/fps-compare-60fps.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" play="true" loop="true" scale="showall" wmode="window" devicefont="false" bgcolor="#1e1e1e" name="fps-compare-60fps" menu="true" allowfullscreen="false" allowscriptaccess="sameDomain" salign="" type="application/x-shockwave-flash">
+              <h2>JavaScript</h2>
+              <p class="fragment" data-fragment-index="1">setInterval</p>
+              <p class="fragment" data-fragment-index="2">setTimeout</p>
+            </section>
+            <section>
+              <h2>HTML5</h2>
+              <p class="fragment" data-fragment-index="1">requestAnimationFrame(callback)</p>
+            </section>
+            <section>
+              <h2>CSS3</h2>
+              <p class="fragment" data-fragment-index="1">animation</p>
+              <p class="fragment" data-fragment-index="2">transition</p>
+            </section>
+            <section>
+              <h2 shref="http://www.infoq.com/cn/articles/javascript-high-performance-animation-and-page-rendering?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global">timer问题</h2>
+              <p class="fragment" data-fragment-index="1">依靠浏览器内置时钟更新频率. eg. IE8及以前更新间隔为15.6, setTimeout 16.7, 它需要两个15.6ms才触发。超过14.5ms(时机)</p>
+              <p class="fragment" data-fragment-index="2">GPU渲染画面的频率和屏幕刷新频率的不一致导致丢帧(成本)</p>
+            </section>
+            <section>
+              <h2 shref="http://www.infoq.com/cn/articles/javascript-high-performance-animation-and-page-rendering?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global">raf问题</h2>
+              <p class="fragment" data-fragment-index="1">需要考虑渲染成本</p>
+              <p class="fragment" data-fragment-index="2">callback工作太多，自动调节GPU渲染画面的频率</p>
+            </section>
+            <section>
+              <h2 shref="http://www.infoq.com/cn/articles/javascript-high-performance-animation-and-page-rendering?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=global">css3问题</h2>
+              <p class="fragment" data-fragment-index="1">需要考虑渲染成本</p>
+            </section>
+            <section>
+              <h2>渲染过程</h2>
+              <img src="img/devtools-waterfall.jpg">
+            </section>
+            <section>
+              <h2>触发Layout(计算布局)</h2>
+              <p class="fragment" data-fragment-index="1">改变width, height, margin等和<strong>大小、位置</strong>相关的属性</p>
+              <p class="fragment" data-fragment-index="2">读取size, position相关得属性</p>
+              <p class="fragment" data-fragment-index="3">clientHeight, clientLeft, clientTop, clientWidth, focus(), innerText, offsetHeight, offsetLeft, offsetParent, offsetTop, offsetWidth, scrollLeft, scrollTop, scrollWidth .....</p>
+            </section>
+            <section>
+              <h2>Layout(计算布局)</h2>
+              <div class="fragment" data-fragment-index="1">
+                <pre><code data-trim data-noescape style="border:1px solid;">var h1 = element1.clientHeight;
+element1.style.height = (h1 * 2) + 'px';
+
+var h2 = element2.clientHeight;
+element2.style.height = (h2 * 2) + 'px';
+</code></pre>
+              </div>
+              <div class="fragment" data-fragment-index="2">
+                <pre><code data-trim data-noescape style="border:1px solid;">
+//先读
+var h1 = element1.clientHeight;
+var h2 = element2.clientHeight;
+//后写
+element1.style.height = (h1 * 2) + 'px';
+element2.style.height = (h2 * 2) + 'px';
+</code></pre>
+              </div>
+            </section>
+            <section>
+              <h2>Paint(绘制)</h2>
+              <p class="fragment" data-fragment-index="1">触发:改变border-radius, box-shadow, color等<strong>展示</strong>相关的属性</p>
+              <p class="fragment" data-fragment-index="2">代价:不断重新绘制，性能降低</p>
+              <a href="paint.html" class="fragment" target="_blank" data-fragment-index="3" style="color: lavender;">Demo</a>
+              <p class="fragment" data-fragment-index="4">优化:简化绘制的复杂度，避免不必要的绘制，减少绘制区域</p>
+            </section>
+            <section>
+              <h2>Layer(模型)</h2>
+              <p class="fragment" data-fragment-index="1">浏览器根据CSS属性为元素生成Layers</p>
+              <p class="fragment" data-fragment-index="2">Layers上传到GPU</p>
+              <p class="fragment" data-fragment-index="3">当改变Layer的transform, opacity属性时，渲染会跳过Layout, paint，直接通知GPU对Layer做变换</p>
+            </section>
+            <section>
+              <h2>Layer创建标准</h2>
+              <p class="fragment" data-fragment-index="1">拥有3d transform属性</p>
+              <p class="fragment" data-fragment-index="2">使用animation, transition实现opacity, transform的动画</p>
+            </section>
+            <section>
+              <h2>动画对比(top/transform)</h2>
+              <p>
+                <img src="img/animate-height-2x.png" width="46%" style="vertical-align: top;border: none;background: none;box-shadow: none;">
+                <img src="img/animate-transform-2x.png" width="46%" style="vertical-align: top;border: none;background: none;box-shadow: none;">
+              </p>
+            </section>
+            <section>
+              <h2>节省的时间</h2>
+              <p class="fragment" data-fragment-index="1">CPU进行Layout, Paint的时间</p>
+              <p class="fragment" data-fragment-index="2">CPU向GPU传输位图的时间</p>
+            </section>
+            <section>
+              <h2>高性能动画</h2>
+              <p class="fragment" data-fragment-index="1">animation/transition</p>
+              <p class="fragment" data-fragment-index="2">改变位移，缩放等高级属性</p>
+              <p class="fragment" data-fragment-index="3">GPU硬件加速</p>
+            </section>
+            <section>
+              <h1>Q&A</h1>
+            </section>
+            <section>
+              <h1>谢谢</h1>
             </section>
         </div>
     </div>
-    <script src="/bower_components/headjs/dist/1.0.0/head.min.js"></script>
-    <script src="/bower_components/reveal.js/js/reveal.js"></script>
-    <script>
-        //Reveal.initialize();
-        /**
-            * 启动slides
-            */
-            function initReveal() {
-                var config = {
-                    controls: true,
-                    progress: true,
-                    history: true,
-                    center: true
-                };
-
-                Reveal.initialize(config);
-            };
-            initReveal();
-    </script>
+    <script src="bower_components/headjs/dist/1.0.0/head.min.js"></script>
+    <script src="bower_components/reveal.js/js/reveal.js"></script>
+    <script>Reveal.initialize({history: true});</script>
   </body>
 </html>
